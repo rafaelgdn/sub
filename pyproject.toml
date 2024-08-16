@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "substack-com"
+version = "0.1.0"
+description = ""
+authors = ["Rafael de Carvalho <rafael@bgcbrasil.com.br>"]
+readme = "README.md"
+packages = [{include = "substack"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+selenium-driverless = "^1.9.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
