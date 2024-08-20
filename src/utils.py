@@ -75,7 +75,7 @@ async def get_headers_and_pubid(driver, blog_url, keyword=None):
     return publication_id, headers, domain
 
 
-def save_to_csv(data, filename, headers):
+def save_to_csv(data, filename, headers, subject):
     with open(filename, "w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=headers)
         writer.writeheader()
@@ -91,14 +91,4 @@ def save_to_csv(data, filename, headers):
         else:
             raise TypeError("Data must be a dictionary or a list of dictionaries")
 
-    print(f"✅ Creator data successfully saved to {filename}")
-
-
-# def save_to_csv(data, filename, headers):
-#     file_exists = os.path.isfile(filename)
-#     with open(filename, "a", newline="", encoding="utf-8") as csvfile:
-#         writer = csv.DictWriter(csvfile, fieldnames=headers)
-#         if not file_exists:
-#             writer.writeheader()
-#         for row in data:
-#             writer.writerow(row)
+    print(f"✅ {subject} data successfully saved to {filename}")

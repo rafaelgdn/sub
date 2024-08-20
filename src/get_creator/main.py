@@ -4,7 +4,7 @@ import os
 import sys
 import argparse
 import asyncio
-import hrequests
+import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 parser = argparse.ArgumentParser(description="Substack scraper")
@@ -29,7 +29,7 @@ async def main():
 
         # Get the popular posts
         popular_posts_api_url = f"https://{domain}/api/v1/archive?sort=top&search=&offset=0&limit=12"
-        popular_posts_response = hrequests.get(popular_posts_api_url, headers=headers)
+        popular_posts_response = requests.get(popular_posts_api_url, headers=headers)
 
         if popular_posts_response.status_code == 200:
             posts = popular_posts_response.json()
@@ -46,7 +46,7 @@ async def main():
 
             # Get the latest posts
             latest_posts_api_url = f"https://{domain}/api/v1/archive?sort=new&search=&offset=0&limit=12"
-            latest_posts_response = hrequests.get(latest_posts_api_url, headers=headers)
+            latest_posts_response = requests.get(latest_posts_api_url, headers=headers)
 
             if latest_posts_response.status_code == 200:
                 posts = latest_posts_response.json()
@@ -102,7 +102,7 @@ async def main():
         "latest-post4-date",
     ]
 
-    save_to_csv(creator_data, "src/get_creator/creator.csv", headers)
+    save_to_csv(creator_data, "src/get_creator/creator.csv", headers, "Creator")
 
 
 asyncio.run(main())

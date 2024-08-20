@@ -6,7 +6,7 @@ import os
 import sys
 import asyncio
 import argparse
-import hrequests
+import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 parser = argparse.ArgumentParser(description="Substack scraper")
@@ -30,7 +30,7 @@ async def get_creators_data(driver, creators_page_links):
                 creator_data = {"name": name, "description": description, "subscribers": subscribers, "link": link}
                 publication_id, headers, domain = await get_headers_and_pubid(driver, blog_url, args.keyword)
                 search_posts_api_url = f"https://{domain}/api/v1/post/search?query={quote(args.keyword)}&focusedPublicationId={publication_id}&page=0&numberFocused=10"
-                response = hrequests.get(search_posts_api_url, headers=headers)
+                response = requests.get(search_posts_api_url, headers=headers)
 
                 if response.status_code == 200:
                     posts = response.json()["results"]
@@ -142,7 +142,7 @@ async def main():
         "post5",
     ]
 
-    save_to_csv(data, "src/find_creators/creators.csv", headers)
+    save_to_csv(data, "src/find_creators/creators.csv", headers, "Creators")
 
 
 asyncio.run(main())
